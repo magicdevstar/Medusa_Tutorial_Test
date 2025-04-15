@@ -20,7 +20,6 @@ export const createBrandStep = createStep(
     const brandModuleService: BrandModuleService = container.resolve(
       BRAND_MODULE
     )
-    
     const brand = await brandModuleService.createBrands(input)
     
     return new StepResponse(brand, brand.id)

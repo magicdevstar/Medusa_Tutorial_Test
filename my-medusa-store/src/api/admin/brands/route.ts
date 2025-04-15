@@ -13,8 +13,22 @@ export const POST = async (
 ) => {
   const { result } = await createBrandWorkflow(req.scope)
     .run({
-      input: req.validatedBody,
+      input: req.body,
     })
 
   res.json({ brand: result })
+}
+
+export const GET = async (
+  req: MedusaRequest,
+  res: MedusaResponse
+) => {
+  const query = req.scope.resolve("query")
+
+  const { data: brands } = await query.graph({
+    entity: "brand",
+    fields: ["*", "products.*"],
+  })
+
+  res.json({ brands })
 }
